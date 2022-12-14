@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+export default function() {
     return (
         <>
         <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -62,6 +62,4 @@ const Header = () => {
         </nav>
         </>
     )
-}
-
-export default Header;
+};

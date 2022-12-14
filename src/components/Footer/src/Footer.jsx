@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+export default function() {
     return (
         <>
         <footer class="p-4 bg-white sm:p-6 dark:bg-gray-900">
@@ -77,6 +77,4 @@ const Header = () => {
         </footer>
         </>
     )
-}
-
-export default Header;
+};
