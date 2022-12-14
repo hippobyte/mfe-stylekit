@@ -1,3 +1,1 @@
-export default function Root(props) {
-  return <section>{props.name} is mounted!</section>;
-}
+export { Header } from './components/Header';
