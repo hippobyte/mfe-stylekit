@@ -10,6 +10,11 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
+    output: {
+      filename: (pathData) => {
+        const namespace = package.name.split('@').pop().split('/').join('.');
+        return pathData.chunk.name === 'main' ? `${namespace}.[name].[contenthash].js` : `${namespace}.[name]/[name].[contenthash].js`;
+      }
+    }
   });
 };
