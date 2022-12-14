@@ -11,6 +11,7 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
+    externals: ["react", "react-dom", /^@hippobyte\/.+/],
     output: {
       filename: (pathData) => {
         const namespace = package.name.split('@').pop().split('/').join('.');
