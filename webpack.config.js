@@ -1,22 +1,39 @@
-const package = require('./package.json');
-const { merge } = require("webpack-merge");
+const { mergeWithRules } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react");
 
-module.exports = (webpackConfigEnv, argv) => {
+module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "hippobyte",
     projectName: "stylekit",
     webpackConfigEnv,
-    argv,
   });
 
-  return merge(defaultConfig, {
+  const config = mergeWithRules({
+    module: {
+      rules: {
+        test: "match",
+        use: "replace",
+      },
+    },
+  })(defaultConfig, {
     externals: ["react", "react-dom", /^@hippobyte\/.+/],
-    output: {
-      filename: (pathData) => {
-        const namespace = package.name.split('@').pop().split('/').join('.');
-        return pathData.chunk.name === 'main' ? `${namespace}.[name].[contenthash].js` : `${namespace}.[name]/[name].[contenthash].js`;
-      }
-    }
+    module: {
+      rules: [
+        {
+          test: /\.css$/i,
+          use: [
+            require.resolve("style-loader", {
+              paths: [require.resolve("webpack-config-single-spa")],
+            }),
+            require.resolve("css-loader", {
+              paths: [require.resolve("webpack-config-single-spa")],
+            }),
+            "postcss-loader",
+          ],
+        },
+      ],
+    },
   });
+
+  return config;
 };
