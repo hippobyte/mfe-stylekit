@@ -16,7 +16,6 @@ module.exports = (webpackConfigEnv) => {
       },
     },
   })(defaultConfig, {
-    externals: ["react", "react-dom", /^@hippobyte\/.+/],
     module: {
       rules: [
         {
